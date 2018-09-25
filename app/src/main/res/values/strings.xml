@@ -1,0 +1,32 @@
+<resources>
+    <string name="app_name">VARY</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="mainLogin">Log In</string>
+    <string name="mainEnterName">Name</string>
+    <string name="mainUserId">User ID</string>
+    <string name="mainEmail">Email Address</string>
+    <string name="mainPassword">Password</string>
+    <string name="mainRePassword">ReEnter Password</string>
+    <string name="mainSignUp">Sign UP</string>
+    <string name="new_petetion">New Petetion</string>
+    <string name="my_signs">My Signatures</string>
+    <string name="my_petetion">My Petetion</string>
+    <string name="home_prof">Profile</string>
+    <string name="home_logout">Logout</string>
+    <string name="headerID">UserID</string>
+    <string name="startPetetionLogo">Start A Petition</string>
+    <string name="startPetTitle">Write your petition title</string>
+    <string name="start_decesion_maker">Choose a decision maker</string>
+    <string name="start_your_solution">Explain the problem you want to solve</string>
+    <string name="start_photo">Add a photo or video</string>
+    <string name="start_save_and_preview">Save And Preview</string>
+    <string-array name="levels">
+        <item>Student</item>
+        <item>Teachers</item>
+        <item>Administrator</item>
+    </string-array>
+    <string name="activeUserName">Suraj</string>
+    <string name="display_petetion_by">Petetion By</string>
+</resources>

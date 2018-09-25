@@ -1,0 +1,42 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:layout_height="match_parent"
+    tools:context="com.example.ace.vary.LoginFragment">
+
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/mainLogin"
+        android:textSize="30sp"
+        />
+
+    <EditText
+        android:id="@+id/LoginId"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/mainUserId" />
+
+    <EditText
+        android:id="@+id/LoginPass"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/mainPassword" />
+
+    <Spinner
+        android:id="@+id/loginSpinner"
+        android:layout_width="368dp"
+        android:layout_height="wrap_content"/>
+
+    <Button
+        android:id="@+id/LoinButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/mainLogin"/>
+
+
+</LinearLayout>

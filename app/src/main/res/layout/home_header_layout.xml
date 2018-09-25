@@ -20,17 +20,18 @@
         android:padding="1dp"
         app:srcCompat="@drawable/headericon" />
 
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/headerUserId"
-        android:layout_marginStart="75dp"
+        android:layout_marginStart="60dp"
         android:gravity="center"
+
         android:layout_marginTop="8dp"
-        android:text="@string/headerID"
         android:layout_marginBottom="10dp"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-        android:textSize="28sp" />
+        android:textSize="18sp" />
 
 
 </LinearLayout>

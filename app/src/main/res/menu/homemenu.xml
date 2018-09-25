@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<group android:checkableBehavior="single">
+
+    <item android:id="@+id/homeNavnewPet"
+            android:title="@string/new_petetion"
+        android:icon="@drawable/createnewpet"
+
+        />
+    <item android:id="@+id/homeMySign"
+        android:title="@string/my_signs"
+        android:icon="@drawable/mysignatures"
+
+        />
+    <item android:id="@+id/homeMyPetet"
+        android:title="@string/my_petetion"
+        android:icon="@drawable/mypett"
+
+        />
+    <item android:id="@+id/homeProfile"
+        android:title="@string/home_prof"
+        android:icon="@drawable/profile"
+
+        />
+    <item android:id="@+id/homeLogout"
+        android:title="@string/home_logout"
+        android:icon="@drawable/logout"
+
+        />
+
+
+
+</group>
+</menu>
