@@ -21,7 +21,13 @@
         </activity>
         <activity android:name=".home" />
         <activity android:name=".NewPetetion" />
-        <activity android:name=".displayPetetion"></activity>
+        <activity android:name=".displayPetetion" />
+        <activity android:name=".myPetetions" />
+        <activity android:name=".Profile" />
+        <activity android:name=".MySignatures" />
+        <activity android:name=".Administrator" />
+        <activity android:name=".Suggestions" />
+        <activity android:name=".otp"></activity>
     </application>
 
 </manifest>

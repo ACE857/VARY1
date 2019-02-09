@@ -1,10 +1,13 @@
-package com.example.ace.vary;
+package com.example.ace.vary.modelsAndAdapters;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+
+import com.example.ace.vary.LoginFragment;
+import com.example.ace.vary.SignUpFragment;
 
 /**
  * Created by ace on 9/14/18.

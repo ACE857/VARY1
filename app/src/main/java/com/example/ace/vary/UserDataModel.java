@@ -10,12 +10,7 @@ public class UserDataModel implements Serializable {
 
     String email,level,name,pass,userid;
 
-    public UserDataModel(String email, String level, String name, String pass) {
-        this.email = email;
-        this.level = level;
-        this.name = name;
-        this.pass = pass;
-    }
+
 
     public UserDataModel() {
     }

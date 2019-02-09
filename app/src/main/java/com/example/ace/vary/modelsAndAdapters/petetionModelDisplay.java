@@ -1,4 +1,4 @@
-package com.example.ace.vary;
+package com.example.ace.vary.modelsAndAdapters;
 
 public class petetionModelDisplay {
     public String pass;

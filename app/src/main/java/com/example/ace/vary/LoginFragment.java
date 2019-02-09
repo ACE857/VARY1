@@ -28,11 +28,12 @@ import com.google.firebase.database.ValueEventListener;
  */
 public class LoginFragment extends Fragment implements AdapterView.OnItemSelectedListener {
 
-    EditText name,pass;
+    EditText id,pass;
     Button login;
     FirebaseDatabase database;
     String userLvl;
     DatabaseReference users;
+    int flg=0;
     public LoginFragment() {
         // Required empty public constructor
     }
@@ -51,7 +52,7 @@ public class LoginFragment extends Fragment implements AdapterView.OnItemSelecte
         spinner.setAdapter(adapter);
         spinner.setOnItemSelectedListener(this);
 
-        name = view.findViewById(R.id.LoginId);
+        id = view.findViewById(R.id.LoginId);
         pass = view.findViewById(R.id.LoginPass);
         login = view.findViewById(R.id.LoinButton);
 
@@ -61,37 +62,51 @@ public class LoginFragment extends Fragment implements AdapterView.OnItemSelecte
         login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                flg=0;
                 final ProgressDialog progressDialog = new ProgressDialog(view.getContext());
                 progressDialog.setMessage("Logging You In");
                 progressDialog.show();
 
+
                 users.addValueEventListener(new ValueEventListener() {
                     @Override
+
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         progressDialog.dismiss();
 
                         // checking if user exists
-                        if(dataSnapshot.child(name.getText().toString()).exists()){
-                            UserDataModel user = dataSnapshot.child(name.getText().toString()).getValue(UserDataModel.class);
-                            user.setUserid(name.getText().toString());
-                           // Toast.makeText(view.getContext(), ""+user.getLevel()+"-"+userLvl, Toast.LENGTH_SHORT).show();
-                            if(user.getPass().equals(pass.getText().toString()) && userLvl.equals(user.getLevel()) ){
-                                Toast.makeText(view.getContext(), "Welcome To VARY", Toast.LENGTH_SHORT).show();
+                        if (flg == 0){
 
-                              // start home activity
-                                Intent intent = new Intent(view.getContext(),home.class);
-                                intent.putExtra("user",user);
+                            if (dataSnapshot.child(id.getText().toString()).exists()) {
+                                UserDataModel user = dataSnapshot.child(id.getText().toString()).getValue(UserDataModel.class);
+                                user.setUserid(id.getText().toString());
+                                // Toast.makeText(view.getContext(), ""+user.getLevel()+"-"+userLvl, Toast.LENGTH_SHORT).show();
+                                if (user.getPass().equals(pass.getText().toString()) && userLvl.equals(user.getLevel())) {
+                                    Toast.makeText(view.getContext(), "Welcome To VARY", Toast.LENGTH_SHORT).show();
+                                    flg=1;
+                                    // start home activity
+                                    id.setText("");
+                                    pass.setText("");
+                                    if(userLvl.equals("Administrator")) {
+                                        Intent intent = new Intent(view.getContext(), Administrator.class);
+                                        intent.putExtra("user", user);
+                                        startActivity(intent);
+                                    }
+                                    else {
+                                        Intent intent = new Intent(view.getContext(), home.class);
+                                        intent.putExtra("user", user);
+                                        startActivity(intent);
+                                    }
 
-                                startActivity(intent);
 
 
+                                } else
+                                    Toast.makeText(view.getContext(), "Wrong Password Or Wrong Lvl Of Authentication", Toast.LENGTH_SHORT).show();
+
+                            } else {
+                                Toast.makeText(view.getContext(), "UserId Invalid", Toast.LENGTH_SHORT).show();
                             }
-                            else
-                                Toast.makeText(view.getContext(), "Wrong Password Or Wrong Lvl Of Authentication", Toast.LENGTH_SHORT).show();
-                        }   else {
-                            Toast.makeText(view.getContext(), "UserId Invalid", Toast.LENGTH_SHORT).show();
-                        }
+                    }
                     }
 
                     @Override

@@ -22,6 +22,11 @@
         android:icon="@drawable/profile"
 
         />
+    <item android:id="@+id/homeSuggestion"
+        android:title="@string/suggestions"
+        android:icon="@drawable/profile"
+
+        />
     <item android:id="@+id/homeLogout"
         android:title="@string/home_logout"
         android:icon="@drawable/logout"

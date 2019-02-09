@@ -30,6 +30,7 @@ public class SignUpFragment extends Fragment implements AdapterView.OnItemSelect
     EditText signid,signname,signemail,signpass,signrepass;
     Button signup;
     FirebaseDatabase database ;
+    int flg=0;
     DatabaseReference req ;
     public SignUpFragment() {
         // Required empty public constructor
@@ -63,6 +64,7 @@ public class SignUpFragment extends Fragment implements AdapterView.OnItemSelect
         signup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                flg=0;
                 final ProgressDialog progressDialog = new ProgressDialog(view.getContext());
                 progressDialog.setMessage("Signing You In...");
                 progressDialog.show();
@@ -70,21 +72,23 @@ public class SignUpFragment extends Fragment implements AdapterView.OnItemSelect
                 req.addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
+                        if(flg==0){
+                            flg=1;
                         progressDialog.dismiss();
-                        if(dataSnapshot.child(signid.getText().toString()).exists())
-                        {
+                        if (dataSnapshot.child(signid.getText().toString()).exists()) {
                             Toast.makeText(view.getContext(), "Pending Request", Toast.LENGTH_SHORT).show();
-                        }
-                        else
-                        {
-                            if(signpass.getText().toString().equals(signrepass.getText().toString())) {
-                                UserDataModel user = new UserDataModel(signemail.getText().toString(),userLvl,signname.getText().toString(),signname.getText().toString(),signpass.getText().toString());
+                        } else {
+                            if (signpass.getText().toString().equals(signrepass.getText().toString())) {
+                                UserDataModel user = new UserDataModel(signemail.getText().toString(), userLvl, signname.getText().toString(), signpass.getText().toString(),signid.getText().toString());
                                 req.child(signid.getText().toString()).setValue(user);
                                 Toast.makeText(view.getContext(), "Request Submitted Sucessfully", Toast.LENGTH_SHORT).show();
-                            }
-                            else
+                            } else
                                 Toast.makeText(view.getContext(), "Password Do Not Match", Toast.LENGTH_SHORT).show();
                         }
+
+                    }
+                    signemail.setText("");
+                        signid.setText(""); signname.setText("");   signpass.setText(""); signrepass.setText("");
                     }
 
                     @Override

@@ -21,7 +21,7 @@
     <string name="start_decesion_maker">Choose a decision maker</string>
     <string name="start_your_solution">Explain the problem you want to solve</string>
     <string name="start_photo">Add a photo or video</string>
-    <string name="start_save_and_preview">Save And Preview</string>
+    <string name="start_save_and_preview">Create Petetion</string>
     <string-array name="levels">
         <item>Student</item>
         <item>Teachers</item>
@@ -29,4 +29,12 @@
     </string-array>
     <string name="activeUserName">Suraj</string>
     <string name="display_petetion_by">Petetion By</string>
+    <string name="username">UserName</string>
+    <string name="description">Description</string>
+    <string name="image">Image</string>
+    <string name="a">a</string>
+    <string name="approve">Approve</string>
+    <string name="reject">Reject</string>
+    <string name="suggestions">Suggestions</string>
+    <string name="reqSign">Required Signatures</string>
 </resources>

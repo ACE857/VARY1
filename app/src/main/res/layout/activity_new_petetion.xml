@@ -5,8 +5,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="@drawable/background"
     tools:context="com.example.ace.vary.NewPetetion">
-<!--********************************** TO handle overflow ******************-->
+    <!--********************************** TO handle overflow ******************-->
     <ScrollView
         android:id="@+id/scrollView1"
         android:layout_width="wrap_content"
@@ -20,73 +21,100 @@
         <!-- ********************Title of the petetion and logo********************-->
 
         <LinearLayout
-    android:layout_width="match_parent"
-    android:orientation="vertical"
-    android:layout_height="wrap_content">
+            android:layout_width="match_parent"
+            android:orientation="vertical"
+            android:layout_height="wrap_content">
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/startPetetionLogo"
-        android:gravity="center"
-        android:textSize="20sp"
-        />
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        >
-        <EditText
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="7"
-            android:id="@+id/newPetTitle"
-            android:layout_marginTop="30dp"
-            android:hint="@string/startPetTitle"
-            />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="START A PETETION"
+                android:gravity="center"
+                android:textSize="30sp"
+                android:padding="8dp"
+                android:textColor="#fff"
 
-        <Button
-            android:id="@+id/newPetTitleinfo"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="10dp"
-            android:layout_marginTop="30dp"
-            android:layout_weight="1"
-            android:drawableRight="@drawable/info"
-            android:onClick="showInfoTitle" />
 
-    </LinearLayout>
+                />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                >
+                <EditText
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="7"
+
+                    android:id="@+id/newPetTitle"
+                    android:layout_marginTop="30dp"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginRight="15dp"
+                    android:hint="@string/startPetTitle"
+                    android:textColor="#fff"
+                    android:padding="8dp"
+
+                    android:textColorHint="#f5f1f1"
+
+
+                    />
+
+                <Button
+                    android:id="@+id/newPetTitleinfo"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginTop="30dp"
+                    android:layout_weight="1"
+                    android:drawableRight="@drawable/info"
+                    android:textColor="#0b0b0b"
+                    android:padding="8dp"
+                    android:textColorHint="#0b0b0b"
+                    android:background="@drawable/button_on"
+                    android:onClick="showInfoTitle" />
+
+            </LinearLayout>
 
             <!--******************* Decision Maker******************** -->
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        >
-        <EditText
-            android:layout_width="0dp"
-            android:id="@+id/newPetDM"
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                >
+                <AutoCompleteTextView
+                    android:layout_width="0dp"
+                    android:id="@+id/newPetDM"
 
-            android:layout_height="wrap_content"
-            android:layout_weight="7"
-            android:layout_marginTop="15dp"
-            android:hint="@string/start_decesion_maker"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="7"
+                    android:layout_marginTop="15dp"
+                    android:padding="8dp"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginRight="15dp"
+                    android:hint="@string/start_decesion_maker"
+                    android:textColor="#fff"
+                    android:textColorHint="#f7f2f2"
 
-            />
 
-        <Button
-            android:id="@+id/newPetDMinfo"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="10dp"
-            android:layout_marginTop="15dp"
-            android:layout_weight="1"
-            android:drawableRight="@drawable/info"
 
-            android:onClick="showInfoDec" />
+                    />
 
-    </LinearLayout>
+                <Button
+                    android:id="@+id/newPetDMinfo"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginTop="15dp"
+                    android:layout_weight="1"
+                    android:padding="8dp"
+                    android:drawableRight="@drawable/info"
+                    android:textColor="#0b0b0b"
+                    android:textColorHint="#0b0b0b"
+                    android:background="@drawable/button_on"
+                    android:onClick="showInfoDec" />
+
+            </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -100,8 +128,13 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="15dp"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginRight="15dp"
                     android:layout_weight="7"
+                    android:padding="8dp"
                     android:hint="@string/start_your_solution"
+                    android:textColor="#fff"
+                    android:textColorHint="#f7f2f2"
 
                     android:inputType="textLongMessage" />
 
@@ -111,9 +144,12 @@
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="10dp"
                     android:layout_marginTop="15dp"
+                    android:padding="8dp"
                     android:layout_weight="1"
                     android:drawableRight="@drawable/info"
-
+                    android:textColor="#0b0b0b"
+                    android:textColorHint="#0b0b0b"
+                    android:background="@drawable/button_on"
                     android:onClick="showInfoSol" />
 
             </LinearLayout>
@@ -134,8 +170,11 @@
                     android:layout_height="wrap_content"
                     android:drawableLeft="@drawable/ic_file_upload_black_24dp"
                     android:layout_weight="7"
+                    android:padding="8dp"
                     android:layout_marginEnd="10dp"
-
+                    android:textColor="#0b0b0b"
+                    android:textColorHint="#0b0b0b"
+                    android:background="@drawable/button_on"
                     />
 
 
@@ -144,10 +183,11 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="10dp"
+                    android:padding="8dp"
                     android:layout_marginTop="15dp"
                     android:layout_weight="1"
                     android:drawableRight="@drawable/info"
-
+                    android:background="@drawable/button_on"
                     android:onClick="showInfoPhoto" />
 
 
@@ -158,30 +198,45 @@
 
                 <ImageView
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+
                     android:id="@+id/newPetImg"
+                    android:layout_height="190dp"
                     android:src="@drawable/imageicon"
                     />
 
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="15dp"
+                    android:hint="Required Signatures"
+                    android:inputType="number"
+                    android:textColor="#fff"
+                    android:textColorHint="#ece8e8"
+                    android:textSize="18sp"
+                    android:id="@+id/netPetSignThresh"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <Button
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/newPetSumbit"
+                    android:layout_marginBottom="15dp"
+                    android:textSize="18sp"
+                    android:text="@string/start_save_and_preview"
+                    android:background="@drawable/button_on"
+                    />
 
             </LinearLayout>
 
-<LinearLayout
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content">
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/newPetSumbit"
-        android:layout_marginBottom="15dp"
-        android:textSize="18sp"
-        android:text="@string/start_save_and_preview"
-        />
 
-</LinearLayout>
-
-
-</LinearLayout>
+        </LinearLayout>
 
 
     </ScrollView>

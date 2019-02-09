@@ -1,7 +1,7 @@
 package com.example.ace.vary;
 
+import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
@@ -11,15 +11,17 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-import com.google.android.gms.tasks.OnCompleteListener;
+import com.example.ace.vary.modelsAndAdapters.NewPetModel;
+import com.example.ace.vary.modelsAndAdapters.petetionModel;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -32,38 +34,48 @@ import com.google.firebase.storage.UploadTask;
 
 import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.UUID;
 
 public class NewPetetion extends AppCompatActivity {
 
     private String info,date;
-    EditText title,decMaker,sol;
+    EditText title,sol,signThresh;
+    AutoCompleteTextView decMaker;
     ImageView photo;
     Button submit,choose;
     private Uri filePath;
     private final int PICK_IMAGE_PEQUEST = 71;
     UserDataModel user;
     private String PetID;
-    petetionModel petetionModel;
-    String signatures="0";
+    com.example.ace.vary.modelsAndAdapters.petetionModel petetionModel;
     FirebaseStorage storage;
     StorageReference storageReference;
     int chk=0;
     FirebaseDatabase database ;
-    DatabaseReference req ;
+    ArrayList hintName = new ArrayList();
+    ArrayList hintID = new ArrayList();
+    DatabaseReference req ,newreq;
+    String imgUrl = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_petetion);
-        user = (UserDataModel) getIntent().getSerializableExtra("user");;
+        fillLang();
+        user = (UserDataModel) getIntent().getSerializableExtra("user");
 
         title = findViewById(R.id.newPetTitle);
         decMaker = findViewById(R.id.newPetDM);
+        ArrayAdapter adapter = new ArrayAdapter(this,android.R.layout.simple_list_item_1,hintName);
+
+        decMaker.setAdapter(adapter);
+        decMaker.setThreshold(1);
+
         sol = findViewById(R.id.newPetSol);
         photo = findViewById(R.id.newPetImg);
         submit = findViewById(R.id.newPetSumbit);
+        signThresh = findViewById(R.id.netPetSignThresh);
         choose = findViewById(R.id.newPetuploadBtn);
 
         storage = FirebaseStorage.getInstance();
@@ -71,6 +83,7 @@ public class NewPetetion extends AppCompatActivity {
 
         database = FirebaseDatabase.getInstance();
         req = database.getReference("Petetions");
+        newreq = database.getReference("NewPetetion");
 
         choose.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -86,16 +99,39 @@ public class NewPetetion extends AppCompatActivity {
                     AlertDialog alertDialog = new AlertDialog.Builder(
                             NewPetetion.this).create();
                     alertDialog.setTitle("oop's Empty Fields");
-                    alertDialog.setMessage("Please fill all fields and select an image ...");
+                    alertDialog.setMessage("Please fill all fields and select an image and Signatures should be valid ...");
                     alertDialog.setIcon(R.drawable.info);
                     alertDialog.show();
-                    return; }
-                uploadData();
+
+                     }
+                     else
+                    uploadData();
+
 
             }
         });
 
 
+    }
+
+    void fillLang(){
+        DatabaseReference ref = FirebaseDatabase.getInstance().getReference().child("UserLogins");
+        ref.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for(DataSnapshot dsn : dataSnapshot.getChildren()){
+                    UserDataModel um = dsn.getValue(UserDataModel.class);
+                    hintName.add(um.name);
+                    hintName.add(um.userid);
+
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
     }
 
     @Override
@@ -112,11 +148,16 @@ public class NewPetetion extends AppCompatActivity {
 
     private boolean peformCheck() {
 
-        if(title.getText().toString().length()<=0 || decMaker.getText().toString().length()<=0 || sol.getText().toString().length()<=0 || filePath==null) return true;
-        return false;
+        Boolean bl = title.getText().toString().length() <= 0 || decMaker.getText().toString().length() <= 0 || sol.getText().toString().length() <= 0 || filePath == null;
+
+        if(!hintName.contains(decMaker.getText()+"")) { bl = true;
+            Toast.makeText(this, "Decision Maker Invalid !", Toast.LENGTH_SHORT).show(); }
+        return bl;
+
 
     }
 
+    @SuppressLint("SimpleDateFormat")
     private void uploadData() {
 
             final ProgressDialog progressDialog = new ProgressDialog(NewPetetion.this);
@@ -131,23 +172,22 @@ public class NewPetetion extends AppCompatActivity {
                         chk = 1;
                         // getting a petetion id for this petetion  count is totoal no of petetion till now
                         int count = dataSnapshot.child("count").getValue(Integer.class);
-                        count++;
+                        count--;
                         PetID = "" + count;
                         req.child("count").setValue(count);
                         //  updating value of count in databasex
-                        uploadImage();
+                        uploadImage(count);
+
+
+                        petetionModel = new petetionModel(user.getUserid(), PetID, title.getText().toString(), decMaker.getText().toString(), sol.getText().toString(), PetID, user.getName(), signThresh.getText().toString(), date);
+
+                        req.child(user.getUserid()).child(PetID).setValue(petetionModel);
+
+                        Intent intent = new Intent(NewPetetion.this, home.class);
+                        intent.putExtra("user", user);
+                        DatabaseReference.goOffline();
+                        NewPetetion.this.startActivity(intent);
                     }
-
-
-                    petetionModel = new petetionModel(user.getUserid(), PetID, title.getText().toString(), decMaker.getText().toString(), sol.getText().toString(), PetID, user.getName(), signatures, date);
-
-                    req.child(user.getUserid()).child(PetID).setValue(petetionModel);
-
-                    Intent intent = new Intent(NewPetetion.this, home.class);
-                    intent.putExtra("user", user);
-
-                    NewPetetion.this.startActivity(intent);
-
 
                 }
 
@@ -157,13 +197,28 @@ public class NewPetetion extends AppCompatActivity {
                 }
             });
 
+        newreq.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
+                NewPetModel npm = new NewPetModel(petetionModel.imageID,petetionModel.name,petetionModel.pid,petetionModel.title,petetionModel.uid);
+                newreq.child(petetionModel.pid).setValue(npm);
+                DatabaseReference.goOffline();
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
 
 
 
 
     }
 
-    private void uploadImage() {
+    private void uploadImage(int count) {
 
         if(filePath!=null)
         {
@@ -171,12 +226,12 @@ public class NewPetetion extends AppCompatActivity {
             progressDialog.setTitle("Uploading....");
             progressDialog.show();
 
-            StorageReference ref = storageReference.child(user.getUserid()+"/"+PetID);
+            final StorageReference ref = storageReference.child(user.getUserid()+"/"+PetID);
             ref.putFile(filePath)
                     .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                         @Override
                         public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                            progressDialog.dismiss();;
+                            progressDialog.dismiss();
                             Toast.makeText(NewPetetion.this, "Upload Complete", Toast.LENGTH_SHORT).show();
                         }
                     })
@@ -191,10 +246,20 @@ public class NewPetetion extends AppCompatActivity {
                 @Override
                 public void onProgress(UploadTask.TaskSnapshot taskSnapshot) {
                     int progress = (int) (100*((float)taskSnapshot.getBytesTransferred()/taskSnapshot.getTotalByteCount()));
-                    progressDialog.setMessage("Uploaded"+progress+"%");
+                    progressDialog.setMessage("Uploaded  "+progress+"%");
+
+
+
+
                 }
             });
+
+
         }
+
+
+
+
 
     }
 

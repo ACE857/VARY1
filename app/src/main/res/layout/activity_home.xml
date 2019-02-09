@@ -7,6 +7,7 @@
     tools:context="com.example.ace.vary.home"
     android:id="@+id/homeDrawerLayout"
     android:fitsSystemWindows="true"
+    android:background="@drawable/background"
     >
 
     <LinearLayout
@@ -18,6 +19,18 @@
 
 
         <include layout="@layout/main_toolbar"/>
+
+        <android.support.v7.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scrollbars="vertical"
+            android:id="@+id/homeRecView"
+            >
+
+
+
+        </android.support.v7.widget.RecyclerView>
+
     </LinearLayout>
     <android.support.design.widget.NavigationView
         android:layout_width="wrap_content"
